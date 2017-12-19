@@ -15,7 +15,18 @@ def load_data(nama):
     # full = np.asarray(dataset)
     #mengeleminasi class
     full =np.asarray(np.delete(dataset,[4],1),float)
+    classnya = np.asarray(np.delete(dataset,[0,1,2,3],1))
     return full
+
+def kelasnya(nama):
+    with open(nama, 'rb') as csvfile:
+        lines = csv.reader(csvfile)
+        dataset = list(lines)
+        #mengubah ke dalam array
+    # full = np.asarray(dataset)
+    #mengeleminasi class
+    classnya = np.asarray(np.delete(dataset,[0,1,2,3],1))
+    return classnya
 
 #fungsi Untuk menghitung jarak
 def jarak(a,b):
@@ -59,11 +70,17 @@ def kmean():
     centroid_terpilih = []
     #memilih centroid
     jumlah_centroid = input("Masukan Jumlah Centroid\n")
-    for x in range(jumlah_centroid):
-        pilih = input("Centroid yang "+repr(x+1)+"\n")
-        centroid_terpilih.append(pilih)
-    #mengambil centroid terpilih
-    proto = databaru[[centroid_terpilih]]
+    pilihan = input("1.Random\n2.Pilih Sendiri\n")
+    if pilihan==1:
+        proto = databaru[np.random.randint(0, jumlah_record - 1, size=jumlah_centroid)]
+    else:
+        for x in range(jumlah_centroid):
+            pilih = input("Centroid yang "+repr(x+1)+"\n")
+            centroid_terpilih.append(pilih)
+            # print centroid_terpilih
+        #mengambil centroid terpilih
+        proto = databaru[[centroid_terpilih]]
+
     #memasukan dalam catatan centroid
     catatan_centroid.append(proto)
     #membuat dummy pengurangan
@@ -96,7 +113,7 @@ def kmean():
             instances_close = [i for i in range(len(cluster)) if cluster[i] == index]
             #mencari rata2
             proto = np.mean(databaru[instances_close], axis=0)
-            print proto
+            # print proto
             # prototype = dataset[np.random.randint(0, num_instances, size=1)[0]]
             tmp_proto[index, :] = proto
         #mengeset jarak yang baru
@@ -104,12 +121,46 @@ def kmean():
         #menyimpan di cetatan
         catatan_centroid.append(tmp_proto)
 
-    return databaru,catatan_centroid,cluster
+    return databaru,catatan_centroid,cluster,jumlah_centroid,jumlah_record
 
 
 # prototypes = databaru[[0,0]]
 # proorld = np.zeros(prototypes.shape)
 # jaka=jarak('encludian',prototypes,proorld)
-datame, catatan_centroid,cluster=kmean()
-plot(datame, catatan_centroid, cluster)
-# print catatan_centroid
+datame, catatan_centroid,cluster ,jumlah_centroid,jumlah_record=kmean()
+# plot(datame, catatan_centroid, cluster)
+clasnya = kelasnya('iris.txt')
+
+hitung=np.append(cluster,clasnya,axis=1)
+
+# print jumlah_centroid
+setosa=0
+versi =0
+virgi =0
+# hh=(hitung[1]==[0.0 , 'Iris-setosa'])
+# print hh
+#
+for y in range(jumlah_centroid):
+    setosa = 0
+    versi = 0
+    virgi = 0
+    for x in range(jumlah_record):
+          if (hitung[x]==[float(y) ,'Iris-setosa']).all():
+              setosa+=1
+          elif (hitung[x]==[float(y) ,'Iris-versicolor']).all():
+              versi+=1
+          elif (hitung[x]==[float(y) ,'Iris-versicolor']).all():
+              virgi+=1
+    print "untuk Cluseter" + repr(y+1)+"\n"
+    hasil_setosa = (float(setosa)/jumlah_record)
+    print "Iris-setosa =" + repr(setosa)
+    print "Persentasenya " + repr(setosa)+"/"+repr(jumlah_record)+"="+repr(hasil_setosa*100)+"%\n"
+    hasil_versi = (float(versi) / jumlah_record)
+    print "Iris-versicolor =" + repr(versi)
+    print "Persentasenya " + repr(versi) + "/" + repr(jumlah_record) + "=" + repr(hasil_versi*100)+"%\n"
+    hasil_virgi = (float(virgi) / jumlah_record)
+    print "Iris-versicolor =" + repr(virgi)
+    print "Persentasenya " + repr(virgi) + "/" + repr(jumlah_record) + "=" + repr(hasil_virgi*100)+"%\n"
+
+#print setosa
+#print hitung
