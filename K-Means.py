@@ -2,8 +2,7 @@
 import numpy as np
 #digunakan untuk membuat grafik
 import matplotlib.pyplot as plt
-#digunakan untuk membuat animasi
-import matplotlib.animation as animation
+#import cvs
 import csv
 
 #fungsi mengeload data set
@@ -128,7 +127,7 @@ def kmean():
 # proorld = np.zeros(prototypes.shape)
 # jaka=jarak('encludian',prototypes,proorld)
 datame, catatan_centroid,cluster ,jumlah_centroid,jumlah_record=kmean()
-# plot(datame, catatan_centroid, cluster)
+plot(datame, catatan_centroid, cluster)
 clasnya = kelasnya('iris.txt')
 
 hitung=np.append(cluster,clasnya,axis=1)
