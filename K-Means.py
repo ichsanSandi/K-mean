@@ -146,10 +146,13 @@ for y in range(jumlah_centroid):
     for x in range(jumlah_record):
           if (hitung[x]==[float(y) ,'Iris-setosa']).all():
               setosa+=1
+              print hitung[x]
           elif (hitung[x]==[float(y) ,'Iris-versicolor']).all():
               versi+=1
-          elif (hitung[x]==[float(y) ,'Iris-versicolor']).all():
+              print hitung[x]
+          elif (hitung[x]==[float(y) ,'Iris-virginica']).all():
               virgi+=1
+              print hitung[x]
     print "untuk Cluseter" + repr(y+1)+"\n"
     hasil_setosa = (float(setosa)/jumlah_record)
     print "Iris-setosa =" + repr(setosa)
@@ -158,7 +161,7 @@ for y in range(jumlah_centroid):
     print "Iris-versicolor =" + repr(versi)
     print "Persentasenya " + repr(versi) + "/" + repr(jumlah_record) + "=" + repr(hasil_versi*100)+"%\n"
     hasil_virgi = (float(virgi) / jumlah_record)
-    print "Iris-versicolor =" + repr(virgi)
+    print "Iris-virginica =" + repr(virgi)
     print "Persentasenya " + repr(virgi) + "/" + repr(jumlah_record) + "=" + repr(hasil_virgi*100)+"%\n"
 
 #print setosa
