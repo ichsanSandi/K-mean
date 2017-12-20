@@ -12,7 +12,7 @@ def load_data(nama):
         dataset = list(lines)
     #mengubah ke dalam array
     #mengeleminasi class
-    full =np.asarray(np.delete(dataset,[4],1),float)
+    full =np.asarray(np.delete(dataset,[2,3,4],1),float)
     return full
 
 #mengambil class
@@ -30,7 +30,7 @@ def jarak(a,b):
 #fungsi untuk menggambar grafik
 def plot(dataset, history_centroids, belongs_to):
     #memlih warna
-    colors = ['r','g','y','k']
+    colors = ['g','r','y','k']
 
     fig, ax = plt.subplots()
 
@@ -144,13 +144,13 @@ for y in range(jumlah_centroid):
           if (hitung[x]==[float(y) ,'Iris-setosa']).all():
 
               setosa+=1
-              #print hitung[x]
+              # print hitung[x]
           elif (hitung[x]==[float(y) ,'Iris-versicolor']).all():
               versi+=1
-              #print hitung[x]
+              # print hitung[x]
           elif (hitung[x]==[float(y) ,'Iris-virginica']).all():
               virgi+=1
-              #print hitung[x]
+              # print hitung[x]
     print "untuk Cluseter" + repr(y+1)+"\n"
     hasil_setosa = (float(setosa)/jumlah_record)
     print "Iris-setosa =" + repr(setosa)
@@ -162,6 +162,6 @@ for y in range(jumlah_centroid):
     print "Iris-virginica =" + repr(virgi)
     print "Persentasenya " + repr(virgi) + "/" + repr(jumlah_record) + "=" + repr(hasil_virgi*100)+"%\n"
 
-#print catatan_centroid
+# print catatan_centroid
 #print setosa
 #print hitung
